@@ -16,6 +16,7 @@ pipeline {
         stage('PROD') {
             steps { 
                 snDevOpsStep()
+                snDevOpsChange()
                 echo 'PROD' 
             }         
         }
