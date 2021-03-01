@@ -24,3 +24,13 @@ stages:
         PathtoPublish: '$(Build.SourcesDirectory)'
         ArtifactName: 'drop1'
         publishLocation: 'Container'
+      
+  - job: 'Prod_Deploy'
+    pool: server
+    dependsOn: 'Artifact'
+    steps:
+
+    - task: ServiceNow-DevOps-Server-Change-Acceleration@1
+      inputs:
+        connectedServiceName: 'Ven41 DevOps Connection'
+        UpstreamJob: 'UAT_Deploy'
