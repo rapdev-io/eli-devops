@@ -1,5 +1,5 @@
 business_applications:
-  - name: RapDevBot #mandatory
+  - name: RapDevBot #mandatory 
     business_owner:
       name: Abraham Lincoln
       email: abraham.lincoln@example.com #mandatory if include business_owner
