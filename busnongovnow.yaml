@@ -16,6 +16,7 @@ microservice:
     name: Abel Tuter
     email: abel.tuter@example.com #mandatory if include owner
   support_group: Database #mandatory
+  business_criticality: high
   application_services: #list out all of the environments for the microservice
     - environment: Prod #mandatory
       tags: #list out all of the key/value pairs that the resources for this deployed microservice are tagged with
