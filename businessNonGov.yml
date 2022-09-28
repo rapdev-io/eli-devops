@@ -1,0 +1,30 @@
+business_applications:
+  - name: RapDevBot #mandatory
+    business_owner:
+      name: Abraham Lincoln
+      email: abraham.lincoln@example.com #mandatory if include business_owner
+    tech_owner: 
+      name: Andrew Och
+      email: andrew.och@example.com #mandatory if include tech_owner
+    support_group: Application Development #mandatory
+  - name: RapDev.io
+
+microservice:
+  name: rapdev-shard #mandatory
+  owned_by: #possible to auto-populate this using Business Application Tech Owner
+    name: Abel Tuter
+    email: abel.tuter@example.com #mandatory if include owner
+  support_group: Database #mandatory
+  application_services: #list out all of the environments for the microservice
+    - environment: Prod #mandatory
+      tags: #list out all of the key/value pairs that the resources for this deployed microservice are tagged with
+        servicename: rapdev-shard  
+        env: prod
+    - environment: Perf
+      tags:
+        servicename: rapdev-shard  
+        env: perf
+    - environment: Dev
+      tags:
+        servicename: rapdev-shard  
+        env: dev
