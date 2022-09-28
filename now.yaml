@@ -1,5 +1,5 @@
 business_applications:
-  - name: RapDev App #mandatory 
+  - name: RapDev App #mandatory
 
 microservice:
   name: rapdev-web #mandatory
