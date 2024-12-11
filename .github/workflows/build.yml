@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [master]
 
   workflow_dispatch:
 
@@ -35,7 +35,7 @@ jobs:
           echo test, and deploy your project.
           
   test:
-    name: duplicate-job-name
+    name: test-job
     if: ${{inputs.test == 'test'}}
     needs: build 
     runs-on: ubuntu-latest
