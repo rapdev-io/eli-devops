@@ -19,8 +19,8 @@ jobs:
           tool-id: ${{ secrets.SN_TOOL_ID }}
           context-github: ${{ toJSON(github) }}
           job-name: ${{ github.job }}
-          artifacts: '[{"name": "demo-artifact2", "version": "${{ inputs.artifact_version }}", "repositoryName": "${{ github.repository }}"}]'
-          package-name: 'Demo Package - ${{ github.run_number }}'
+          artifacts: '[{"name": "Eli-artifact2", "version": "${{ inputs.artifact_version }}", "repositoryName": "${{ github.repository }}"}]'
+          package-name: 'Eli Package - ${{ github.run_number }}'
 
   deploy:
     needs: package-registration
