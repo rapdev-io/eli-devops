@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_version:
+        required: true
+        type: string
+
+jobs:
+  package-registration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SN Register Artifact
+        uses: ServiceNow/servicenow-devops-register-package@v3.1.0
+        with:
+          devops-integration-token: ${{ secrets.SN_TOKEN }}
+          instance-url: ${{ secrets.SN_URL }}
+          tool-id: ${{ secrets.SN_TOOL_ID }}
+          context-github: ${{ toJSON(github) }}
+          job-name: ${{ github.job }}
+          artifacts: '[{"name": "demo-artifact2", "version": "${{ inputs.artifact_version }}", "repositoryName": "${{ github.repository }}"}]'
+          package-name: 'Demo Package - ${{ github.run_number }}'
+
+  deploy:
+    needs: package-registration
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a one-line script
+        run: echo Hello, world!
