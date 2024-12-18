@@ -8,7 +8,15 @@ on:
         type: string
 
 jobs:
+  mytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: Run a one-line script
+        run: echo Hello
+            
   package-registration:
+    needs: mytest
     runs-on: ubuntu-latest
     steps:
       - name: SN Register Artifact
@@ -19,14 +27,26 @@ jobs:
           tool-id: ${{ secrets.SN_TOOL_ID }}
           context-github: ${{ toJSON(github) }}
           job-name: ${{ github.job }}
-          artifacts: '[{"name": "Eli-artifact2", "version": "${{ inputs.artifact_version }}", "repositoryName": "${{ github.repository }}"}]'
-          package-name: 'Eli Package - ${{ github.run_number }}'
+          artifacts: '[{"name": "eli-devops", "version": "${{ inputs.artifact_version }}", "repositoryName": "${{ github.repository }}"}]'
+          package-name: 'eli Package - ${{ github.run_number }}'
+      - name: ServiceNow DevOps Change Automation
+        uses: ServiceNow/servicenow-devops-change@v4.0.0
+        with:
+          instance-url: ${{ secrets.SN_URL }}
+          devops-integration-token: ${{ secrets.SN_TOKEN }}
+          tool-id: ${{ secrets.SN_TOOL_ID }}
+          job-name: ${{ github.job }}
+          context-github: ${{ toJSON(github) }}
+          change-request: '{}'
+          deployment-gate: '{"environment":"Production","jobName":"My deploy test"}'
+      
 
   deploy:
+    name: My deploy test
     needs: package-registration
-    environment: production
+    environment: Production
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4.2.2
       - name: Run a one-line script
         run: echo Hello, world!
